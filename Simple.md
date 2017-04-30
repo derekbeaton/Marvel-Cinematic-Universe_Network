@@ -1,1 +1,5 @@
-![Components 1 and 2 from Correspondence Analysis of Marvel Cinematic Universe actors (movies only)](Pictures/CA_12__NoGS_Min2_Network.png)
+# A dual network visualization of the actors in the Marvel Cinematic Universe (movies only). 
+
+Actors are clustered via hierarchical clustering of a 0/1 dissimilarity matrix. The upper triangle shows connected (purple) vs. not connected (green). The lower triangle shows the strength of connectedness (not connected is white; more connected is darker). 
+
+![Dual network image](Pictures/DualNet.png)
