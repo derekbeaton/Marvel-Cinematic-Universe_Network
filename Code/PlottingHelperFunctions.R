@@ -85,15 +85,16 @@ dual.heatmap <-
 function(upper.data,lower.data,
 	upperRamp=colorRampPalette(c("palegreen1","mediumorchid")),upperRampCols=2,lowerRamp=colorRampPalette(c("white","black")),lowerRampCols=2,label.colors="black",label.sizes=0.175/log10(nrow(upper.data)),xlab="",ylab="",main="",png=F,dir="./",filename="my_heatmap.png",width=12000,height=12000,pointsize=300){
 	
+	
 	if(png){
 		png(paste0(dir,filename),width=width,height=height,pointsize=pointsize)
+		par(mar=c(0,0,2,2)+.1)
 	}
 	
 	image(x=1:nrow(upper.data),y=1:ncol(upper.data),z= upper.data,axes=F,col= upperRamp(upperRampCols),xlab=xlab,ylab=ylab,main=main)
 	image(x=1:nrow(lower.data),y=1:ncol(lower.data),z= lower.data,add=T,col= lowerRamp(lowerRampCols))
 	ypos <- axis(4, at=1:nrow(upper.data), labels = rep("", nrow(upper.data)), las = 2, line = -0.5, tick = 0)
 	text(x = par("usr")[2] + (1 + .5) * strwidth("M"), y = ypos, labels=rownames(upper.data), cex = label.sizes, col= label.colors,xpd=T)
-	
 	
 	if(png){
 		dev.off()
@@ -102,6 +103,26 @@ function(upper.data,lower.data,
 }
 
 
+
+dual.heatmap_svg <- 
+function(upper.data,lower.data,
+	upperRamp=colorRampPalette(c("palegreen1","mediumorchid")),upperRampCols=2,lowerRamp=colorRampPalette(c("white","black")),lowerRampCols=2,label.colors="black",label.sizes=0.5/log10(nrow(upper.data)),xlab="",ylab="",main="",svg=T,dir="./",filename="my_heatmap.svg",width=10,height=10){
+	
+	
+	if(svg){
+		svg(paste0(dir,filename),width=width,height=height)
+	}
+	
+	image(x=1:nrow(upper.data),y=1:ncol(upper.data),z= upper.data,axes=F,col= upperRamp(upperRampCols),xlab=xlab,ylab=ylab,main=main)
+	image(x=1:nrow(lower.data),y=1:ncol(lower.data),z= lower.data,add=T,col= lowerRamp(lowerRampCols))
+	ypos <- axis(4, at=1:nrow(upper.data), labels = rep("", nrow(upper.data)), las = 2, line = -0.5, tick = 0)
+	text(x = par("usr")[2] + (1 + .5) * strwidth("M"), y = ypos, labels=rownames(upper.data), cex = label.sizes, col= label.colors,xpd=T)
+	
+	if(svg){
+		dev.off()
+	}
+	
+}
 
 
 thisPlotter <- function(res,appears,cols,xa=1,ya=2,dn=T,file="",leg.pos="topleft"){
