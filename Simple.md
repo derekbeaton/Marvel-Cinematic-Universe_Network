@@ -2,4 +2,6 @@
 
 Actors are clustered via hierarchical clustering of a 0/1 dissimilarity matrix. The upper triangle shows connected (purple) vs. not connected (green). The lower triangle shows the strength of connectedness (not connected is white; more connected is darker). 
 
-![Dual network image](Pictures/DualNet.png)
+![Dual network image](./Pictures/DualNetworkVis/1a_DualNet.png)
+
+
