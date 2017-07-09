@@ -1,0 +1,173 @@
+19a20
+> 
+21c22
+< appearances["Stan Lee"] <- 20
+---
+> appearances["Stan Lee"] <- (length(base.cols2$gc)-1)
+23c24
+< my.heatmap(movie.mats$thresh,movie.mats$dissimilar,colors.list=base.cols2$oc,main="Full Connectivity (Thresholded)",png=T,dir="./Pics/",filename="1_StandardConnectivity_FullThreshold.png")
+---
+> # my.heatmap(movie.mats$thresh,movie.mats$dissimilar,colors.list=base.cols2$oc,main="Full Connectivity (Thresholded)",png=T,dir="./Pics/",filename="1_StandardConnectivity_FullThreshold.png")
+25c26
+< my.heatmap(movie.mats$thresh_zero.diag,movie.mats$dissimilar,colors.list=base.cols2$oc,main="Full Connectivity (Thresholded)",png=T,dir="./Pics/",filename="2_StandardConnectivity_FullThreshold_ZeroDiag.png")
+---
+> # my.heatmap(movie.mats$thresh_zero.diag,movie.mats$dissimilar,colors.list=base.cols2$oc,main="Full Connectivity (Thresholded)",png=T,dir="./Pics/",filename="2_StandardConnectivity_FullThreshold_ZeroDiag.png")
+27c28
+< my.heatmap(movie.mats.nogs$thresh,movie.mats.nogs$dissimilar,colors.list=base.cols2$oc,main="No Global Signal (Thresholded)",png=T,dir="./Pics/",filename="3_StandardConnectivity_NoGSThreshold.png")
+---
+> # my.heatmap(movie.mats.nogs$thresh,movie.mats.nogs$dissimilar,colors.list=base.cols2$oc,main="No Global Signal (Thresholded)",png=T,dir="./Pics/",filename="3_StandardConnectivity_NoGSThreshold.png")
+29c30
+< my.heatmap(movie.mats.nogs$thresh_zero.diag,movie.mats.nogs$dissimilar,colors.list=base.cols2$oc,main="No Global Signal (Thresholded)",png=T,dir="./Pics/",filename="4_StandardConnectivity_NoGSThreshold_ZeroDiag.png")
+---
+> # my.heatmap(movie.mats.nogs$thresh_zero.diag,movie.mats.nogs$dissimilar,colors.list=base.cols2$oc,main="No Global Signal (Thresholded)",png=T,dir="./Pics/",filename="4_StandardConnectivity_NoGSThreshold_ZeroDiag.png")
+32c33
+< my.heatmap(movie.mats$counts_zero.diag,movie.mats$dissimilar,heatramp_colors=256,colors.list=base.cols2$oc,main="Full Connectivity",png=T,dir="./Pics/",filename="5_StandardConnectivity_FullCounts_ZeroDiag.png")
+---
+> # my.heatmap(movie.mats$counts_zero.diag,movie.mats$dissimilar,heatramp_colors=256,colors.list=base.cols2$oc,main="Full Connectivity",png=T,dir="./Pics/",filename="5_StandardConnectivity_FullCounts_ZeroDiag.png")
+34,36c35,37
+< movie.counts.thresh <- movie.mats$counts_zero.diag
+< movie.counts.thresh[movie.counts.thresh > 9] <- 10
+< my.heatmap(movie.counts.thresh,movie.mats$dissimilar,heatramp_colors=256,colors.list=base.cols2$oc,main="Full Connectivity",png=T,dir="./Pics/",filename="6_StandardConnectivity_FullCounts_ZeroDiag_Thresholded.png")
+---
+> # movie.counts.thresh <- movie.mats$counts_zero.diag
+> # movie.counts.thresh[movie.counts.thresh > 9] <- 10
+> # my.heatmap(movie.counts.thresh,movie.mats$dissimilar,heatramp_colors=256,colors.list=base.cols2$oc,main="Full Connectivity",png=T,dir="./Pics/",filename="6_StandardConnectivity_FullCounts_ZeroDiag_Thresholded.png")
+39c40
+< my.heatmap(movie.mats.nogs$counts_zero.diag,movie.mats.nogs$dissimilar,heatramp_colors=256,colors.list=base.cols2$oc,main="Full Connectivity",png=T,dir="./Pics/",filename="7_StandardConnectivity_NoGSCounts_ZeroDiag.png")
+---
+> # my.heatmap(movie.mats.nogs$counts_zero.diag,movie.mats.nogs$dissimilar,heatramp_colors=256,colors.list=base.cols2$oc,main="Full Connectivity",png=T,dir="./Pics/",filename="7_StandardConnectivity_NoGSCounts_ZeroDiag.png")
+42,44c43,45
+< movie.counts.nogs.thresh <- movie.mats.nogs$counts_zero.diag
+< movie.counts.nogs.thresh[movie.counts.nogs.thresh > 9] <- 10
+< my.heatmap(movie.counts.nogs.thresh,movie.mats.nogs$dissimilar,heatramp_colors=256,colors.list=base.cols2$oc,main="No Global Signal",png=T,dir="./Pics/",filename="8_StandardConnectivity_NoGSCounts_ZeroDiag_Thresholded.png")
+---
+> # movie.counts.nogs.thresh <- movie.mats.nogs$counts_zero.diag
+> # movie.counts.nogs.thresh[movie.counts.nogs.thresh > 9] <- 10
+> # my.heatmap(movie.counts.nogs.thresh,movie.mats.nogs$dissimilar,heatramp_colors=256,colors.list=base.cols2$oc,main="No Global Signal",png=T,dir="./Pics/",filename="8_StandardConnectivity_NoGSCounts_ZeroDiag_Thresholded.png")
+49,53c50
+< #OK so there are a few matrices to concern ourselves with:
+< 	##movie.mats$counts
+< 	##movie.mats$counts_zero.diag	
+< 	##movie.mats$thresh_zero.diag
+< 	##movie.mats$thresh_load_diag
+---
+> ## Thomas the Tank Engine: Michael Brandon, Martin Sherman, William Hope
+55,56d51
+< ## I like the ca.res3 the most... it is simplest and informative
+< 	## alternatively ca.res1 is fine.
+58,80c53,55
+< # ##a test
+< # ca.res1 <- epCA(movie.mats$counts,graphs=F)
+< 	# ## we don't want "inverse dimensions" which(diag(cor(ca.res$ExPosition.Data$fi,ca.res$ExPosition.Data$fj))==1)
+< 	# which(diag(cor(ca.res1$ExPosition.Data$fi,ca.res1$ExPosition.Data$fj))==1)
+< 	# thisPlotter(ca.res1,appearances[rownames(ca.res1$ExPosition.Data$fi)],base.cols2,1,2,leg.pos="bottomright")
+< 	
+< # ##a test
+< # ca.res2 <- epCA(movie.mats$counts_zero.diag,graphs=F)
+< 	# ## we don't want "inverse dimensions" which(diag(cor(ca.res$ExPosition.Data$fi,ca.res$ExPosition.Data$fj))==1)
+< 	# which(diag(cor(ca.res2$ExPosition.Data$fi,ca.res2$ExPosition.Data$fj))==1)
+< 	# thisPlotter(ca.res2,appearances[rownames(ca.res2$ExPosition.Data$fi)],base.cols2,1,2,leg.pos="bottomright")
+< 	
+< # ##a test
+< # ca.res3 <- epCA(movie.mats$thresh_load_diag,graphs=F)
+< 	# ## we don't want "inverse dimensions" which(diag(cor(ca.res$ExPosition.Data$fi,ca.res$ExPosition.Data$fj))==1)
+< 	# which(diag(cor(ca.res3$ExPosition.Data$fi,ca.res3$ExPosition.Data$fj))==1)	
+< 	# thisPlotter(ca.res3,appearances[rownames(ca.res3$ExPosition.Data$fi)],base.cols2,1,2,leg.pos="bottomright")
+< 		
+< # ##a test
+< # ca.res4 <- epCA(movie.mats$thresh_zero.diag,graphs=F)
+< 	# ## we don't want "inverse dimensions" which(diag(cor(ca.res$ExPosition.Data$fi,ca.res$ExPosition.Data$fj))==1)
+< 	# which(diag(cor(ca.res4$ExPosition.Data$fi,ca.res4$ExPosition.Data$fj))==1)
+< 	# thisPlotter(ca.res4,appearances[rownames(ca.res4$ExPosition.Data$fi)],base.cols2,1,2,leg.pos="bottomright")
+---
+> 	## I can delve into the nuances later. I just want to present this bluntly.
+> 	## so I'll also need better versions of the network images above.
+> ### OK so let's stick with the easy one: movie.mats$thresh_load_diag
+82,85c57,58
+< # ## this isn't quite right...
+< # #laplace <- eigen(diag(colSums(movie.mats$thresh_zero.diag)) - movie.mats$thresh_zero.diag)
+< # #t(laplace$vectors) %*% laplace$vectors
+< # #plot(laplace$vectors)
+---
+> ## redo network images then CA
+> #my.heatmap(movie.counts.nogs.thresh,movie.mats.nogs$dissimilar,heatramp_colors=256,colors.list=base.cols2$oc,main="No Global Signal",png=T,dir="./Pics/",filename="8_StandardConnectivity_NoGSCounts_ZeroDiag_Thresholded.png")
+86a60,62
+> counts_zerodiag <- movie.mats$counts
+> diag(counts_zerodiag) <- rep(0,length(diag(counts_zerodiag)))
+> my.heatmap(counts_zerodiag,heatramp=colorRampPalette(c("white","black")),movie.mats$dissimilar,heatramp_colors=32,colors.list=base.cols2$oc,main="Full Connectivity (Counts)",png=T,dir="./Pics/",filename="00_FullConnectivity_Counts.png")
+87a64,67
+> count.thresh <- movie.mats$counts
+> count.thresh[count.thresh>5] <- 6
+> diag(count.thresh) <- rep(0,length(diag(count.thresh)))
+> my.heatmap(count.thresh,heatramp=colorRampPalette(c("white","black")),movie.mats$dissimilar,heatramp_colors=7,colors.list=base.cols2$oc,main="Full Connectivity (Counts; Thresholded)",png=T,dir="./Pics/",filename="00_FullConnectivity_Counts_Thresholded_ZeroDiag.png")
+90,100d69
+< # thisPlotter(ca.res,appearances[rownames(ca.res$ExPosition.Data$fi)],base.cols2,1,2,leg.pos="bottomright")
+< # thisPlotter(ca.res,appears=rep(2,nrow(ca.res$ExPosition.Data$fi)),cols=base.cols2,xa=1,ya=2,leg.pos="bottomright")
+< 	# ## 11 and 12 look OK
+< 	# ## NMDS -- use 1:16
+< # library(MASS)
+< # unique.fis <- unique(ca.res1$ExPosition.Data$fi[,1:16])
+< # d <- dist(unique.fis)
+< # fit <- isoMDS(d,k=2)
+< # prettyPlot(fit$points,axes=F,col=base.cols2$oc[rownames(fit$points),],pch=20,display_names=F,cex=appearances[rownames(fit$points)]/2)
+< 	# ## I can replace the missing people with identical values to what they would be given similarity in $fi
+< 	# ## then use that in Gephi or some other visualizer. Or just do it myself.
+101a71,79
+> ## test with image
+> counts.mat <- movie.mats$counts
+> rowInd <- order.dendrogram(as.dendrogram(hclust(as.dist(movie.mats$dissimilar),method="ward.D2")))
+> counts.mat <- counts.mat[rowInd,rowInd]
+> upper.thresh <- lower.thresh <- counts.mat
+> lower.thresh[lower.tri(lower.thresh,diag=F)] <- NA
+> lower.thresh[lower.thresh>0] <- 1
+> upper.thresh[upper.tri(upper.thresh,diag=T)] <- NA
+> upper.thresh[upper.thresh>5] <- 6
+103,104d80
+< # mds.res <- epMDS(ca.res3$ExPosition.Data$fi[,1:16],F,graphs=F)
+< # prettyPlot(mds.res$ExPosition.Data$fi,axes=F,col=base.cols2$oc[rownames(mds.res$ExPosition.Data$fi),],pch=20,display_names=F)
+106,107c82,87
+< # # ca.res <- epCA(movie.mats.nogs$thresh,graphs=F)	
+< # # thisPlotter(ca.res,appearances,base.cols2,7,8,leg.pos="bottomright")
+---
+> png("TEST_NET.png",width=12000,height=12000,pointsize=300)
+> image(x=1:nrow(counts.mat),y=1:ncol(counts.mat),z=lower.thresh,axes=F,col=colorRampPalette(c("white","black"))(2),xlab="",ylab="")
+> image(x=1:nrow(counts.mat),y=1:ncol(counts.mat),z=upper.thresh,add=T,col=colorRampPalette(c("palegreen1","mediumorchid"))(7))
+> ypos <- axis(4, at=1:nrow(counts.mat), labels = rep("", nrow(counts.mat)), las = 2, line = -0.5, tick = 0)
+> text(x = par("usr")[2] + (1 + .5) * strwidth("M"), y = ypos, labels=rownames(counts.mat), cex = 0.175/log10(nrow(counts.mat)), col=base.cols2$oc[rownames(counts.mat),],xpd=T)
+> dev.off()
+108a89
+> #reorderfun = function(d, w) reorder(d, w)
+109a91,92
+> #ddr <- as.dendrogram(hcr)
+> #ddr <- reorderfun(ddr, Rowv)
+111d93
+< ## Thomas the Tank Engine: Michael Brandon, Martin Sherman, William Hope
+114,118c96
+< 	## I can delve into the nuances later. I just want to present this bluntly.
+< 	## so I'll also need better versions of the network images above.
+< ### OK so let's stick with the easy one: movie.mats$thresh_load_diag
+< 
+< ## redo network images then CA
+---
+> ##
+123,125c101,116
+< 	thisPlotter(ca.res,appearances[rownames(ca.res3$ExPosition.Data$fi)],base.cols2,1,2,leg.pos="bottomright")
+< 	
+< ## then dive into NoGS with min connections @ 2
+---
+> 	thisPlotter(ca.res,appearances[rownames(ca.res$ExPosition.Data$fi)],base.cols2,1,2,leg.pos="bottomleft")
+> 	thisPlotter(ca.res,rep(3,nrow(ca.res$ExPosition.Data$fi)),base.cols2,1,2,leg.pos="topleft")	
+> 
+> ## then dive into NoGS with min connections @ 2; 1 is cool, too. Should build up.
+> ca.res1 <- epCA(movie.mats.nogs_min1$thresh_load_diag,graphs=F)
+> 	# ## we don't want "inverse dimensions" which(diag(cor(ca.res$ExPosition.Data$fi,ca.res$ExPosition.Data$fj))==1)
+> 	# which(diag(cor(ca.res3$ExPosition.Data$fi,ca.res3$ExPosition.Data$fj))==1)	
+> 	thisPlotter(ca.res1,appearances[rownames(ca.res1$ExPosition.Data$fi)],base.cols2,3,4,leg.pos="bottomleft")
+> 	thisPlotter(ca.res1,rep(2,nrow(ca.res1$ExPosition.Data$fi)),base.cols2,3,4,leg.pos="bottomleft")	
+> 		
+> ca.res2 <- epCA(movie.mats.nogs_min2$thresh_load_diag,graphs=F)
+> 	# ## we don't want "inverse dimensions" which(diag(cor(ca.res$ExPosition.Data$fi,ca.res$ExPosition.Data$fj))==1)
+> 	# which(diag(cor(ca.res3$ExPosition.Data$fi,ca.res3$ExPosition.Data$fj))==1)	
+> 	thisPlotter(ca.res2,appearances[rownames(ca.res2$ExPosition.Data$fi)],base.cols2,3,4,leg.pos="bottomleft")
+> 	thisPlotter(ca.res2,rep(4,nrow(ca.res2$ExPosition.Data$fi)),base.cols2,3,4,leg.pos="bottomleft")	
+> 

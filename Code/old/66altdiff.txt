@@ -1,0 +1,259 @@
+20,25d19
+< # he's special.
+< appearances["Stan Lee"] <- 20
+< 
+< my.heatmap(movie.mats$thresh,movie.mats$dissimilar,colors.list=base.cols2$oc,main="Full Connectivity (Thresholded)",png=T,dir="./Pics/",filename="1_StandardConnectivity_FullThreshold.png")
+< 
+< my.heatmap(movie.mats$thresh_zero.diag,movie.mats$dissimilar,colors.list=base.cols2$oc,main="Full Connectivity (Thresholded)",png=T,dir="./Pics/",filename="2_StandardConnectivity_FullThreshold_ZeroDiag.png")
+27c21,22
+< my.heatmap(movie.mats.nogs$thresh,movie.mats.nogs$dissimilar,colors.list=base.cols2$oc,main="No Global Signal (Thresholded)",png=T,dir="./Pics/",filename="3_StandardConnectivity_NoGSThreshold.png")
+---
+> # he's special.
+> appearances["Stan Lee"] <- (length(base.cols2$gc)-1)
+29c24,26
+< my.heatmap(movie.mats.nogs$thresh_zero.diag,movie.mats.nogs$dissimilar,colors.list=base.cols2$oc,main="No Global Signal (Thresholded)",png=T,dir="./Pics/",filename="4_StandardConnectivity_NoGSThreshold_ZeroDiag.png")
+---
+> ## Need to homogenize this a bit. Get the counts (with network threshold) in the square symmetric matrix
+> ## and similarly for CA Components 1-2, but then a NMDS of 1-X
+> ### REPEAT ABOVE FOR NOGS MIN1 OR MIN2
+30a28
+> ## Just a fun note: Thomas the Tank Engine: Michael Brandon, Martin Sherman, William Hope
+32c30,34
+< my.heatmap(movie.mats$counts_zero.diag,movie.mats$dissimilar,heatramp_colors=256,colors.list=base.cols2$oc,main="Full Connectivity",png=T,dir="./Pics/",filename="5_StandardConnectivity_FullCounts_ZeroDiag.png")
+---
+> 	## Need this for whichever NoGS I go with.
+> counts.mat <- movie.mats$counts
+> rowInd <- order.dendrogram(as.dendrogram(hclust(as.dist(movie.mats$dissimilar),method="ward.D2")))
+> counts.mat <- counts.mat[rowInd,rowInd]
+> upper.thresh <- lower.thresh <- counts.mat
+34,36c36,37
+< movie.counts.thresh <- movie.mats$counts_zero.diag
+< movie.counts.thresh[movie.counts.thresh > 9] <- 10
+< my.heatmap(movie.counts.thresh,movie.mats$dissimilar,heatramp_colors=256,colors.list=base.cols2$oc,main="Full Connectivity",png=T,dir="./Pics/",filename="6_StandardConnectivity_FullCounts_ZeroDiag_Thresholded.png")
+---
+> upper.thresh[lower.tri(upper.thresh,diag=F)] <- NA
+> upper.thresh[upper.thresh>0] <- 1
+37a39,40
+> lower.thresh[upper.tri(lower.thresh,diag=T)] <- NA
+> lower.thresh[lower.thresh>5] <- 6
+39c42
+< my.heatmap(movie.mats.nogs$counts_zero.diag,movie.mats.nogs$dissimilar,heatramp_colors=256,colors.list=base.cols2$oc,main="Full Connectivity",png=T,dir="./Pics/",filename="7_StandardConnectivity_NoGSCounts_ZeroDiag.png")
+---
+> dual.heatmap(upper.thresh, lower.thresh, lowerRampCols=7,label.colors=base.cols2$oc[rownames(counts.mat),],main="Dual Network",png=T,dir="./Pics/",filename="DualNet.png")
+42,44c45,49
+< movie.counts.nogs.thresh <- movie.mats.nogs$counts_zero.diag
+< movie.counts.nogs.thresh[movie.counts.nogs.thresh > 9] <- 10
+< my.heatmap(movie.counts.nogs.thresh,movie.mats.nogs$dissimilar,heatramp_colors=256,colors.list=base.cols2$oc,main="No Global Signal",png=T,dir="./Pics/",filename="8_StandardConnectivity_NoGSCounts_ZeroDiag_Thresholded.png")
+---
+> ## OK now make the NoGS and then NoGS min 2, but they hvae to go into the original.
+> nogs.counts <- counts.mat
+> nogs.counts[] <- 0
+> nogs.counts[rownames(movie.mats.nogs$counts),colnames(movie.mats.nogs$counts)] <- movie.mats.nogs$counts
+> nogs.upper.thresh <- nogs.lower.thresh <- nogs.counts
+45a51,52
+> nogs.upper.thresh[lower.tri(nogs.upper.thresh,diag=F)] <- NA
+> nogs.upper.thresh[nogs.upper.thresh>0] <- 1
+46a54,55
+> nogs.lower.thresh[upper.tri(nogs.lower.thresh,diag=T)] <- NA
+> nogs.lower.thresh[nogs.lower.thresh>5] <- 6
+47a57
+> dual.heatmap(nogs.upper.thresh, nogs.lower.thresh, lowerRampCols=7,label.colors=base.cols2$oc[rownames(nogs.counts),],main="Dual Network - No Global Signal",png=T,dir="./Pics/",filename="DualNet_NoGS.png")
+49,53d58
+< #OK so there are a few matrices to concern ourselves with:
+< 	##movie.mats$counts
+< 	##movie.mats$counts_zero.diag	
+< 	##movie.mats$thresh_zero.diag
+< 	##movie.mats$thresh_load_diag
+55,56d59
+< ## I like the ca.res3 the most... it is simplest and informative
+< 	## alternatively ca.res1 is fine.
+58,80c61,64
+< # ##a test
+< # ca.res1 <- epCA(movie.mats$counts,graphs=F)
+< 	# ## we don't want "inverse dimensions" which(diag(cor(ca.res$ExPosition.Data$fi,ca.res$ExPosition.Data$fj))==1)
+< 	# which(diag(cor(ca.res1$ExPosition.Data$fi,ca.res1$ExPosition.Data$fj))==1)
+< 	# thisPlotter(ca.res1,appearances[rownames(ca.res1$ExPosition.Data$fi)],base.cols2,1,2,leg.pos="bottomright")
+< 	
+< # ##a test
+< # ca.res2 <- epCA(movie.mats$counts_zero.diag,graphs=F)
+< 	# ## we don't want "inverse dimensions" which(diag(cor(ca.res$ExPosition.Data$fi,ca.res$ExPosition.Data$fj))==1)
+< 	# which(diag(cor(ca.res2$ExPosition.Data$fi,ca.res2$ExPosition.Data$fj))==1)
+< 	# thisPlotter(ca.res2,appearances[rownames(ca.res2$ExPosition.Data$fi)],base.cols2,1,2,leg.pos="bottomright")
+< 	
+< # ##a test
+< # ca.res3 <- epCA(movie.mats$thresh_load_diag,graphs=F)
+< 	# ## we don't want "inverse dimensions" which(diag(cor(ca.res$ExPosition.Data$fi,ca.res$ExPosition.Data$fj))==1)
+< 	# which(diag(cor(ca.res3$ExPosition.Data$fi,ca.res3$ExPosition.Data$fj))==1)	
+< 	# thisPlotter(ca.res3,appearances[rownames(ca.res3$ExPosition.Data$fi)],base.cols2,1,2,leg.pos="bottomright")
+< 		
+< # ##a test
+< # ca.res4 <- epCA(movie.mats$thresh_zero.diag,graphs=F)
+< 	# ## we don't want "inverse dimensions" which(diag(cor(ca.res$ExPosition.Data$fi,ca.res$ExPosition.Data$fj))==1)
+< 	# which(diag(cor(ca.res4$ExPosition.Data$fi,ca.res4$ExPosition.Data$fj))==1)
+< 	# thisPlotter(ca.res4,appearances[rownames(ca.res4$ExPosition.Data$fi)],base.cols2,1,2,leg.pos="bottomright")
+---
+> nogs.min2.counts <- counts.mat
+> nogs.min2.counts[] <- 0
+> nogs.min2.counts[rownames(movie.mats.nogs_min2$counts),colnames(movie.mats.nogs_min2$counts)] <- movie.mats.nogs_min2$counts
+> nogs.min2.upper.thresh <- nogs.min2.lower.thresh <- nogs.min2.counts
+82,85c66,67
+< # ## this isn't quite right...
+< # #laplace <- eigen(diag(colSums(movie.mats$thresh_zero.diag)) - movie.mats$thresh_zero.diag)
+< # #t(laplace$vectors) %*% laplace$vectors
+< # #plot(laplace$vectors)
+---
+> nogs.min2.upper.thresh[lower.tri(nogs.min2.upper.thresh,diag=F)] <- NA
+> nogs.min2.upper.thresh[nogs.min2.upper.thresh>0] <- 1
+86a69,70
+> nogs.min2.lower.thresh[upper.tri(nogs.min2.lower.thresh,diag=T)] <- NA
+> nogs.min2.lower.thresh[nogs.min2.lower.thresh>5] <- 6
+87a72
+> dual.heatmap(nogs.min2.upper.thresh, nogs.min2.lower.thresh, lowerRampCols=7,label.colors=base.cols2$oc[rownames(nogs.min2.counts),],main="Dual Network - No Global Signal (Min. 2)",png=T,dir="./Pics/",filename="DualNet_NoGS_Min2.png")
+90,100c75,78
+< # thisPlotter(ca.res,appearances[rownames(ca.res$ExPosition.Data$fi)],base.cols2,1,2,leg.pos="bottomright")
+< # thisPlotter(ca.res,appears=rep(2,nrow(ca.res$ExPosition.Data$fi)),cols=base.cols2,xa=1,ya=2,leg.pos="bottomright")
+< 	# ## 11 and 12 look OK
+< 	# ## NMDS -- use 1:16
+< # library(MASS)
+< # unique.fis <- unique(ca.res1$ExPosition.Data$fi[,1:16])
+< # d <- dist(unique.fis)
+< # fit <- isoMDS(d,k=2)
+< # prettyPlot(fit$points,axes=F,col=base.cols2$oc[rownames(fit$points),],pch=20,display_names=F,cex=appearances[rownames(fit$points)]/2)
+< 	# ## I can replace the missing people with identical values to what they would be given similarity in $fi
+< 	# ## then use that in Gephi or some other visualizer. Or just do it myself.
+---
+> nogs.min2.counts_re <- movie.mats.nogs_min2$counts
+> nogs.min2.rowInd <- order.dendrogram(as.dendrogram(hclust(as.dist(movie.mats.nogs_min2$dissimilar),method="ward.D2")))
+> nogs.min2.counts_re <- nogs.min2.counts_re[nogs.min2.rowInd,nogs.min2.rowInd]
+> nogs.min2.upper.thresh_re <- nogs.min2.lower.thresh_re <- nogs.min2.counts_re
+101a80,81
+> nogs.min2.upper.thresh_re[lower.tri(nogs.min2.upper.thresh_re,diag=F)] <- NA
+> nogs.min2.upper.thresh_re[nogs.min2.upper.thresh_re>0] <- 1
+103,104c83,84
+< # mds.res <- epMDS(ca.res3$ExPosition.Data$fi[,1:16],F,graphs=F)
+< # prettyPlot(mds.res$ExPosition.Data$fi,axes=F,col=base.cols2$oc[rownames(mds.res$ExPosition.Data$fi),],pch=20,display_names=F)
+---
+> nogs.min2.lower.thresh_re[upper.tri(nogs.min2.lower.thresh_re,diag=T)] <- NA
+> nogs.min2.lower.thresh_re[nogs.min2.lower.thresh_re>5] <- 6
+106,107c86
+< # # ca.res <- epCA(movie.mats.nogs$thresh,graphs=F)	
+< # # thisPlotter(ca.res,appearances,base.cols2,7,8,leg.pos="bottomright")
+---
+> dual.heatmap(nogs.min2.upper.thresh_re, nogs.min2.lower.thresh_re, lowerRampCols=7,label.colors=base.cols2$oc[rownames(nogs.min2.counts_re),],main="Dual Network - No Global Signal (Min. 2)",png=T,dir="./Pics/",filename="DualNet_NoGS_Min2_re.png")
+109a89
+> 	#OK awesome the triangular images are done.
+111d90
+< ## Thomas the Tank Engine: Michael Brandon, Martin Sherman, William Hope
+113,118c92
+< 
+< 	## I can delve into the nuances later. I just want to present this bluntly.
+< 	## so I'll also need better versions of the network images above.
+< ### OK so let's stick with the easy one: movie.mats$thresh_load_diag
+< 
+< ## redo network images then CA
+---
+> ##
+123c97,98
+< 	thisPlotter(ca.res,appearances[rownames(ca.res3$ExPosition.Data$fi)],base.cols2,1,2,leg.pos="bottomright")
+---
+> 	thisPlotter(ca.res,appearances[rownames(ca.res$ExPosition.Data$fi)],base.cols2,1,2,leg.pos="bottomleft")
+> 	thisPlotter(ca.res,rep(3,nrow(ca.res$ExPosition.Data$fi)),base.cols2,1,2,leg.pos="topleft")	
+125c100,195
+< ## then dive into NoGS with min connections @ 2
+---
+> 	thisPlotter(ca.res,rep(1,nrow(ca.res$ExPosition.Data$fi)),base.cols2,7,8,leg.pos="topleft")
+> 	thisPlotter(ca.res,log(appearances[rownames(ca.res$ExPosition.Data$fi)]+1),base.cols2,1,2,leg.pos="topleft")
+> 		
+> # dica.res <- epCA(t(makeNominalData(as.matrix(base.cols2$oc[rownames(movie.mats$thresh_load_diag),]))) %*% movie.mats$thresh_load_diag,graphs=F)
+> # res <- isoMDS(dist(dica.res$ExPosition.Data$fj %*% diag(1/dica.res$ExPosition.Data$pdq$Dv)))
+> # plot(res$points,pch=20,col=base.cols2$oc[rownames(res$points),])
+> 		
+> 		
+> 		prettyPlot(ca.res$ExPosition.Data$fi,display_names=F,col=base.cols2$oc[rownames(ca.res $ExPosition.Data$fi),],cex= log((appearances[rownames(ca.res$ExPosition.Data$fi)]/2)+1),axes=F,pch=20,x_axis=1,y_axis=2)
+> 		
+> 		## I need to have a dual set of colors and sizes
+> 			## color and size should be set to alpha=.5 and cex=.75  for all ividuals not in nogs_min2
+> 				## then nogs_min2 individuals will have alpha=1 and cex= # appearances (or connections?)
+> 		## but the first one should be just as is.
+> 		plot(ca.res$ExPosition.Data$fi,axes=F,pch=20,col=base.cols2$oc[rownames(ca.res $ExPosition.Data$fi),],xlab="",ylab="",cex= log((appearances[rownames(ca.res$ExPosition.Data$fi)]/2)+1))
+> 		
+> 		
+> 		
+> #		plot(ca.res$ExPosition.Data$fi,axes=F,pch=20,col=base.cols2$oc[rownames(ca.res $ExPosition.Data$fi),],xlab="",ylab="",cex= log((appearances[rownames(ca.res$ExPosition.Data$fi)]/2)+1))
+> 		## now just these people.
+> 
+> 		gc()		
+> 		all.inds <- rownames(movie.mats$counts)
+> 		nogs_min2.inds <- rownames(movie.mats.nogs_min2$counts)
+> 		diff.inds <- setdiff(all.inds,nogs_min2.inds)
+> 		
+> 		
+> 		
+> 		# plot(ca.res$ExPosition.Data$fi[all.inds,],axes=F,pch=20,col=add.alpha("white",0),xlab="",ylab="")
+> 		# abline(v=0,lwd=5,col='grey35',lty=3)
+> 		# abline(h=0,lwd=5,col='grey35',lty=3)	
+> 		# points(ca.res$ExPosition.Data$fi[all.inds,],pch=20,col=add.alpha(base.cols2$oc[all.inds,],.35),xlab="",ylab="",cex=1.5)
+> 		# spread.labels(ca.res$ExPosition.Data$fi[all.inds,1],ca.res$ExPosition.Data$fi[all.inds,2],labels= all.inds,col=add.alpha(base.cols2$oc[all.inds,],.7),cex=.5,between=T)	
+> 		
+> 		png("./Pics/CA_12__NetworkConfig.png",width=28000,height=28000,pointsize=132)
+> 		plot(ca.res$ExPosition.Data$fi[all.inds,],axes=F,pch=20,col=add.alpha("white",0),xlab="",ylab="")
+> 		abline(v=0,lwd=10,col='black',lty=3)
+> 		abline(h=0,lwd=10,col='black',lty=3)	
+> 		points(ca.res$ExPosition.Data$fi[all.inds,],pch=20,col=add.alpha(base.cols2$oc[all.inds,],.35),cex=1.5)
+> 		text(ca.res$ExPosition.Data$fi[all.inds,1],ca.res$ExPosition.Data$fi[all.inds,2],labels= all.inds,col=add.alpha(base.cols2$oc[all.inds,],.7),cex=.5,pos=1)		
+> 		
+> 		# points(ca.res$ExPosition.Data$fi[diff.inds,],pch=20,col=add.alpha(base.cols2$oc[diff.inds,],.25),xlab="",ylab="",cex=1.5)
+> 		# text(ca.res$ExPosition.Data$fi[diff.inds,1],ca.res$ExPosition.Data$fi[diff.inds,2],labels= diff.inds,col=add.alpha(base.cols2$oc[diff.inds,],.7),cex=.5,pos=1)
+> 		
+> 		# points(ca.res$ExPosition.Data$fi[nogs_min2.inds,],pch=21,col="black",bg=base.cols2$oc[nogs_min2.inds,],xlab="",ylab="",cex=log(rowSums(movie.mats.nogs_min2$counts[nogs_min2.inds,nogs_min2.inds]>0)-1)+1)
+> 		# text(ca.res$ExPosition.Data$fi[diff.inds,1],ca.res$ExPosition.Data$fi[diff.inds,2],labels= diff.inds,col=add.alpha(base.cols2$oc[diff.inds,],.7),cex=.5,pos=1)		
+> 		# shadowtext(ca.res$ExPosition.Data$fi[nogs_min2.inds,1],ca.res$ExPosition.Data$fi[nogs_min2.inds,2],labels=nogs_min2.inds,col=base.cols2$oc[nogs_min2.inds,],bg=add.alpha("grey60",.5),cex=.75)
+> 		
+> 		legend("top",legend=rownames(base.cols2$gc),col=base.cols2$gc,pch=20,cex=2.5,pt.cex=3,text.col=base.cols2$gc,bty="n")
+> 		dev.off()		
+> 		gc()
+> 		
+> 		png("./Pics/CA_12__NoGS_Min2_Network.png",width=28000,height=28000,pointsize=132)
+> 		plot(ca.res$ExPosition.Data$fi,axes=F,pch=20,col=add.alpha("white",0),xlab="",ylab="")
+> 		abline(v=0,lwd=10,col='black',lty=3)
+> 		abline(h=0,lwd=10,col='black',lty=3)				
+> 		for(i in 1:nrow(movie.mats.nogs_min2$thresh_zero.diag)){
+> 			this.point <- ca.res$ExPosition.Data$fi[rownames(movie.mats.nogs_min2$thresh_zero.diag)[i],1:2]
+> 			those.names <- names(which(which(movie.mats.nogs_min2$thresh_zero.diag[i,]==1)>i))
+> 			if(length(those.names)>0){
+> 				for(j in 1:length(those.names)){
+> 					that.point <- ca.res$ExPosition.Data$fi[those.names[j],1:2]
+> 					points(rbind(this.point,that.point),type="l",col=add.alpha("black",.5),lwd=3,lty=1)
+> 				}
+> 			}
+> 		}
+> 		points(ca.res$ExPosition.Data$fi[diff.inds,],pch=20,col=add.alpha(base.cols2$oc[diff.inds,],.25),xlab="",ylab="",cex=1.5)
+> 		text(ca.res$ExPosition.Data$fi[diff.inds,1],ca.res$ExPosition.Data$fi[diff.inds,2],labels= diff.inds,col=add.alpha(base.cols2$oc[diff.inds,],.7),cex=.5,pos=1)
+> 		
+> 		points(ca.res$ExPosition.Data$fi[nogs_min2.inds,],pch=21,col="black",bg=base.cols2$oc[nogs_min2.inds,],xlab="",ylab="",cex=log(rowSums(movie.mats.nogs_min2$counts[nogs_min2.inds,nogs_min2.inds]>0)-1)+1)
+> 		shadowtext(ca.res$ExPosition.Data$fi[nogs_min2.inds,1],ca.res$ExPosition.Data$fi[nogs_min2.inds,2],labels=nogs_min2.inds,col=base.cols2$oc[nogs_min2.inds,],bg=add.alpha("grey60",.5),cex=.75)
+> 		
+> 		legend("top",legend=rownames(base.cols2$gc),col=base.cols2$gc,pch=20,cex=2.5,pt.cex=3,text.col=base.cols2$gc,bty="n")		
+> 		dev.off()
+> 		gc()
+> 		
+> 		
+> 		#prettyPlot(res$ExPosition.Data$fi,display_names=T,display_points=F,col=cols$oc[rownames(res$ExPosition.Data$fi),],text.cex=(appears/2)/2,axes=F,x_axis=xa,y_axis=ya)		
+> 		
+> 		
+> 		
+> 		
+> 
+> ## then dive into NoGS with min connections @ 2; 1 is cool, too. Should build up.
+> ca.res1 <- epCA(movie.mats.nogs_min1$thresh_load_diag,graphs=F)
+> 	# ## we don't want "inverse dimensions" which(diag(cor(ca.res$ExPosition.Data$fi,ca.res$ExPosition.Data$fj))==1)
+> 	# which(diag(cor(ca.res3$ExPosition.Data$fi,ca.res3$ExPosition.Data$fj))==1)	
+> 	thisPlotter(ca.res1,appearances[rownames(ca.res1$ExPosition.Data$fi)],base.cols2,3,4,leg.pos="bottomleft")
+> 	thisPlotter(ca.res1,rep(2,nrow(ca.res1$ExPosition.Data$fi)),base.cols2,3,4,leg.pos="bottomleft")	
+> 		
+> ca.res2 <- epCA(movie.mats.nogs_min2$thresh_load_diag,graphs=F)
+> 	# ## we don't want "inverse dimensions" which(diag(cor(ca.res$ExPosition.Data$fi,ca.res$ExPosition.Data$fj))==1)
+> 	# which(diag(cor(ca.res3$ExPosition.Data$fi,ca.res3$ExPosition.Data$fj))==1)	
+> 	thisPlotter(ca.res2,appearances[rownames(ca.res2$ExPosition.Data$fi)],base.cols2,3,4,leg.pos="bottomleft")
+> 	thisPlotter(ca.res2,rep(4,nrow(ca.res2$ExPosition.Data$fi)),base.cols2,3,4,leg.pos="bottomleft")	
+> 
