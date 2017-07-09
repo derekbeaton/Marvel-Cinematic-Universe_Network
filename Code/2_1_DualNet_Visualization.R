@@ -25,15 +25,17 @@ appearances["Stan Lee"] <- (length(base.cols2$gc)-1)
 counts.mat <- movie.mats$counts
 rowInd <- order.dendrogram(as.dendrogram(hclust(as.dist(movie.mats$dissimilar),method="ward.D2")))
 counts.mat <- counts.mat[rowInd,rowInd]
+
 upper.thresh <- lower.thresh <- counts.mat
 
 upper.thresh[lower.tri(upper.thresh,diag=F)] <- NA
 upper.thresh[upper.thresh>0] <- 1
-
-	## some individuals work together disproportionately high.
 lower.thresh[upper.tri(lower.thresh,diag=T)] <- NA
-lower.thresh[lower.thresh>5] <- 6
 
+dual.heatmap(upper.thresh, lower.thresh, lowerRampCols=7,label.colors=base.cols2$oc[rownames(counts.mat),],main="Dual Network -- No Thresholding",png=T,dir="../Pictures/DualNetworkVis/",filename="DualNet_NoThresh.png")
+
+
+lower.thresh[lower.thresh>5] <- 6
 dual.heatmap(upper.thresh, lower.thresh, lowerRampCols=7,label.colors=base.cols2$oc[rownames(counts.mat),],main="Dual Network",png=T,dir="../Pictures/DualNetworkVis/",filename="DualNet.png")
 
 
