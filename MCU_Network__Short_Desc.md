@@ -1,5 +1,8 @@
 # A network visualization and analysis of the actors in the Marvel Cinematic Universe (movies only). 
 
+This is just a very truncated version of a comprehensive set of network analyses of the actors in the Marvel Cinematic Universe (MCU) movies. I hope to have a far more detailed write up soon which will include more information on how I gathered the data, created the networks, the statistical analyses I performed, and finally a bunch of conjectures about the future of MCU.
+
+
 ## Background
 
 On August 6th, 2015 at 12:48am I was watching the movie [The Hurt Locker](http://www.imdb.com/title/tt0887912/). I only know the exact date and time because I wrote myself a fairly incoherent email with the subject "MCU stats" and in the body "Graph theory , ca, so many possible exsmples.". I had almost fallen asleep when I had noticed and then mumble-fully said to myself (which prompted my email): "Oh, that's [Alrdich Killian](http://marvelcinematicuniverse.wikia.com/wiki/Aldrich_Killian) and [Falcon](http://marvelcinematicuniverse.wikia.com/wiki/Falcon)." A few minutes later: "OH AND THAT'S [HAWKEYE](http://marvelcinematicuniverse.wikia.com/wiki/Hawkeye)!". Three actors in Marvel Cinematic Universe (MCU) all in The Hurt Locker seemed pretty neat to me (at the time it was only these three but it is now actually four: [Hope Van Dyne, a.k.a., The Wasp](http://marvelcinematicuniverse.wikia.com/wiki/Hope_van_Dyne)). And that is what prompted my incoherent email and the following idea: I must understand the network structure of the actors in the MCU.
@@ -8,11 +11,11 @@ On August 6th, 2015 at 12:48am I was watching the movie [The Hurt Locker](http:/
 The original data table of actors x movies for these visualizations and analyses can be found [here](./Data/MovieMat/movie.mat.rda) where network data can be found [here](./Data/ForAnalyses/).
 
 
-## The really short version. 
+## Quick data description
 
 Of all the MCU *movie* (not TV) actors in all MCU movies from Iron Man 1 to Spider-man: Homecoming, there are 938 unique actors that have been in 12,000+ movies (and some other things like shorts, video games, etc.. but I excluded TV episodes and shows). After a bit of cleaning we are left with 779 actors from 10,000+ movies and such. If actors appear together in something they are connected. That connection gets stronger if they appear with each other in many things. 
 
-### Dual network visualization. 
+## Dual network visualization. 
 
 Actors were clustered via hierarchical clustering with Ward linkage of a 0/1 dissimilarity matrix. The clustering determined their grouping and order for the following two figures. In both, the upper triangle shows a simple connectedness: connected (have acted together) is purple and not connected (have not acted together) is green. The lower triangle shows the strength of connectedness: not connected is white where as if actors are more connected (i.e., acted more frequently together) the cell will be darker. 
 
@@ -27,5 +30,15 @@ The next figure was created from a different network structure. I removed the "g
 There's also another fascinating subnetwork: actors from The Lord of the Rings Trilogies (from Karl Urban at the bottom up to Richard Armitage). Note that Hugo Weaving—and to a lesser extent Andy Serkis—are critical central nodes that connect the Lord of the Rings trilogy to the Hobbit trilogy.
 
 
+## Correspondence analysis as a network visualization tool
 
+The network visualizations above are, in all honesty, fairly painful to look at it and get much out of. So we need better tools to get better information from these data. I used correspondence analysis (CA; a cousin of principal components analysis designed specifically for categorical and count data). Below is a two-dimensional visualization of the actor x actor (779 x 779) matrix from CA. I also drew lines between the 104 actors from the subset described above. There are a few key features about CA we should keep in mind when looking at this figure:
 
+* Actors connected by a line are connected outside of the MCU
+* Actors near one another are more connected to one another than actors far away
+* Actors far away from one another are typically not connected (i.e., no co-acting credits)
+* Actors closer to the center (the origin) have many co-acting credits with many other actors throughout all of the MCU movies.
+
+Let's take a look.
+
+![Network Visualization through CA](./Pictures/CA/3b_CA_78__NoGS_Min2_Network.png)
