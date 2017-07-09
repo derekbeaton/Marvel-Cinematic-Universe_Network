@@ -1,7 +1,8 @@
 # A network visualization and analysis of the actors in the Marvel Cinematic Universe (movies only). 
 
-This is just a very truncated version of a comprehensive set of network analyses of the actors in the Marvel Cinematic Universe (MCU) movies. I hope to have a far more detailed write up soon which will include more information on how I gathered the data, created the networks, the statistical analyses I performed, and finally a bunch of conjectures about the future of MCU.
+This is just a very truncated—and very, very boring—version of a comprehensive set of network analyses of the actors in the Marvel Cinematic Universe (MCU) movies. I hope to have a far more detailed—and less boring—write up soon which will include more information on how I gathered the data, created the networks, the statistical analyses I performed, and finally a bunch of conjectures about the future of MCU.
 
+A fair warning: If you haven't seen some of the MCU movies yet (especially Spider-man: Homecoming) then don't click the links as there could be spoilers. 
 
 ## Background
 
@@ -13,7 +14,9 @@ The original data table of actors x movies for these visualizations and analyses
 
 ## Quick data description
 
-Of all the MCU *movie* (not TV) actors in all MCU movies from Iron Man 1 to Spider-man: Homecoming, there are 938 unique actors that have been in 12,000+ movies (and some other things like shorts, video games, etc.. but I excluded TV episodes and shows). After a bit of cleaning we are left with 779 actors from 10,000+ movies and such. If actors appear together in something they are connected. That connection gets stronger if they appear with each other in many things. 
+These data were generated from IMDB in late December 2016 through January 2017. I included all MCU movies including those (at the time) in pre-production (e.g., Black Panther), or where particular casting choices had already been made (e.g., Captain Marvel). I excluded the two forthcoming Avengers movies. The data set only includes actors from the MCU *movies* and all of their acting credits for movies, shorts, video games and such but not TV shows or episodes. 
+
+There are 938 unique actors that have been in 12,000+ movies (and some other things like shorts, video games, etc.. but I excluded TV episodes and shows). After a bit of cleaning we are left with 779 actors from 10,000+ movies and such. If actors appear together in something they are connected. That connection gets stronger if they appear with each other in many things. 
 
 ## Dual network visualization. 
 
@@ -32,13 +35,37 @@ There's also another fascinating subnetwork: actors from The Lord of the Rings T
 
 ## Correspondence analysis as a network visualization tool
 
-The network visualizations above are, in all honesty, fairly painful to look at it and get much out of. So we need better tools to get better information from these data. I used correspondence analysis (CA; a cousin of principal components analysis designed specifically for categorical and count data). Below is a two-dimensional visualization of the actor x actor (779 x 779) matrix from CA. I also drew lines between the 104 actors from the subset described above. There are a few key features about CA we should keep in mind when looking at this figure:
+The network visualizations above are, in all honesty, fairly difficult to look at it and get much out of. So we need better tools to get better information from these data. I used correspondence analysis (CA; a cousin of principal components analysis designed specifically for categorical and count data). Below is a two-dimensional visualization of the actor x actor (779 x 779) matrix from CA. There are a few key features about CA we should keep in mind when looking at these figures (worth downloading so you can zoom in and explore the images, they're a bit big...):
 
-* Actors connected by a line are connected outside of the MCU
 * Actors near one another are more connected to one another than actors far away
 * Actors far away from one another are typically not connected (i.e., no co-acting credits)
 * Actors closer to the center (the origin) have many co-acting credits with many other actors throughout all of the MCU movies.
+* Actors connected by a line are connected outside of the MCU (only applies in the second image)
 
-Let's take a look.
+
+In the first figure I show the first (horizontal) and second (vertical) components. These are the two components with the highest variance. 
+
+![Network Visualization through CA](./Pictures/CA/2a_CA_12__NetworkConfig.png)
+
+
+The first thing we can see is that the actors in The Incredible Hulk (left, green dots) are generally less connected to the rest of the MCU movies. This is to-be-expected as the story line and characters of The Incredible Hulk are typically ignored in the MCU. However, there are three notable exceptions from The Incredible Hulk that are closer to the rest of the actors: Martin Starr, William Hurt, and Lou Ferrigno. The last two are easy: (1) Lou Ferrigno is the voice of the Hulk, and (2) William Hurt's character returned in Civil War (General Ross appeared again as Secretary of State Ross). Martin Starr is a bit different though because he is one of the very, very few individuals to appear in the MCU as *two different characters*: [Amadeus Cho](http://marvelcinematicuniverse.wikia.com/wiki/Amadeus_Cho) in The Incredible Hulk and [Harrigton (a teacher)](http://marvelcinematicuniverse.wikia.com/wiki/Harrington) in Spider-man: Homecoming.
+
+We can also see that actors in the same MCU movies tend to group together: all the red dots are various Iron Man actors, where blue dots are various Captain America actors. 
+
+Finally with this first CA figure, if we zoom in to the center (where the axes meet) we can see Stan Lee hovering around the origin. While that is somewhat poetic, he makes an appearance in every MCU movie and is thus one of the most connected individuals we have. 
+
+
+The next figure shows a different set of two components (7 and 8), which gave the best visualization to illustrate the grouping of actors by movie. Also in the following figure I included lines between actors but only for the 104 actors described above (i.e., they are connected by at least 2 co-acting credits *excluding* the MCU movies).
 
 ![Network Visualization through CA](./Pictures/CA/3b_CA_78__NoGS_Min2_Network.png)
+
+In this figure we still see dots all over the place but generally grouped by the same color. We also only see some of the most connected individuals, e.g., John Favreau, Samuel L. Jackson, Kate Mara, Idris Elba, Judy Greer, Stanley Tucci, and Angela Bassett (who will appear in Black Panther). While there are many fascinating details here (that can be explained by a rich history of acting) there are two particular individuals I will focus on to conclude.
+
+The first is probably not a house-hold name like the previously mentioned actors and is hiding amongst the green-ish dots associated with Spider-Man:Homecoming. Amongst all of those individuals is someone named [Elli](http://www.imdb.com/name/nm1380939/): a rabbi who typically plays a rabbi in a lot of movies and TV shows. Elli has shared acting credits with 89 of 779 individuals in the MCU through a variety of other movie appearances. 
+
+
+The final—and most important—individual is hiding in plain sight. In the first CA figure we saw that Stan Lee was near the origin. He's there because he's been in every MCU movie. But in both CA figures we see someone else near the origin: [Brie Larson](http://www.imdb.com/name/nm0488953/) who has been cast as [Captain Marvel](http://www.imdb.com/title/tt4154664/). What makes Brie Larson's connectedness so interesting is that she has yet to appear in any MCU movies. That means she is already highly connected to the actors (28 total) of the MCU and unlike most other actors in the MCU: she is connected to many other actors across many of the franchises. In fact, she has already appear in movies with almost every primary character in the first Avengers movie (through, e.g., Scott Pilgrim vs. The World, 13 Going on 30, Kong: Skull Island, and Don Jon) as well as actors from more recent MCU films (e.g., Tilda Swinton, John C. Reilly). Captain Marvel is regarded as [one of the most important upcoming MCU movies](http://nerdist.com/captain-marvel-is-the-mcus-most-powerful-hero-according-to-kevin-feige/). It seems that Brie Larson as Captain Marvel was probably a very elaborate and deliberate decision: she's an incredible actress that has already worked with many of the actors who play some of most important characters in the MCU. 
+
+
+
+
