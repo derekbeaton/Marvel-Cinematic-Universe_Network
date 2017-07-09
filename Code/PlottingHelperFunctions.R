@@ -18,7 +18,8 @@ populate.matrix <- function(small.mat,bigger.mat){
 	
 }
 
-## need to point out where I got this
+##This function is stolen from here: http://lamages.blogspot.com/2013/04/how-to-change-alpha-value-of-colours-in.html
+##With some slight modifcations.
 add.alpha <- function(col, alpha = .4){
  apply(sapply(col, col2rgb)/255, 2, function(x) rgb(x[1], x[2], x[3], alpha = alpha))
 }
@@ -40,7 +41,7 @@ add.alpha <- function(col, alpha = .4){
 # } 
 
 
-##stolen https://github.com/cran/TeachingDemos/blob/master/R/shadowtext.R
+##stolen from https://github.com/cran/TeachingDemos/blob/master/R/shadowtext.R
 shadowtext <- function(x, y=NULL, labels, col='white', bg='black', theta= seq(pi/4, 2*pi, length.out=16), r=0.1, pos=3, ... ) {
 	xy <- xy.coords(x,y)
 	xo <- r*strwidth('A')
@@ -81,6 +82,8 @@ my.heatmap <- function(viz.mat,clust.mat,heatramp=colorRampPalette(c("palegreen1
 	
 }
 
+
+## I got this code from somewhere and customized it... but I don't remember where.
 dual.heatmap <- 
 function(upper.data,lower.data,
 	upperRamp=colorRampPalette(c("palegreen1","mediumorchid")),upperRampCols=2,lowerRamp=colorRampPalette(c("white","black")),lowerRampCols=2,label.colors="black",label.sizes=0.175/log10(nrow(upper.data)),xlab="",ylab="",main="",png=F,dir="./",filename="my_heatmap.png",width=12000,height=12000,pointsize=300){
