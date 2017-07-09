@@ -59,7 +59,7 @@ The next figure shows a different set of two components (7 and 8), which gave th
 
 ![Network Visualization through CA](./Pictures/CA/3b_CA_78__NoGS_Min2_Network.png)
 
-In this figure we still see dots all over the place but generally grouped by the same color. We also only see some of the most connected individuals, e.g., John Favreau, Samuel L. Jackson, Kate Mara, Idris Elba, Judy Greer, Stanley Tucci, and Angela Bassett (who will appear in Black Panther). While there are many fascinating details here (that can be explained by a rich history of acting) there are two particular individuals I will focus on to conclude.
+In this figure we still see dots all over the place but generally grouped by the same color. We also only see some of the most connected individuals, e.g., John Favreau, Samuel L. Jackson, Kate Mara, Idris Elba, Judy Greer, Stanley Tucci, and Angela Bassett (who will appear in Black Panther). While there are many fascinating details here, there are two particular individuals I will focus on to conclude.
 
 The first is probably not a house-hold name like the previously mentioned actors and is hiding amongst the green-ish dots associated with Spider-Man:Homecoming. Amongst all of those individuals is someone named [Elli](http://www.imdb.com/name/nm1380939/): a rabbi who typically plays a rabbi in a lot of movies and TV shows. Elli has shared acting credits with 89 of 779 individuals in the MCU through a variety of other movie appearances. 
 
